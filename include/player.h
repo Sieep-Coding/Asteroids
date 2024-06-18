@@ -8,6 +8,7 @@ typedef struct Player {
     Vector2 velocity;
     float rotation;
     float speed;
+    float radius;
     bool active;
 
 } Player;

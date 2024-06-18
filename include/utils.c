@@ -1,8 +1,8 @@
 #include "utils.h"
+#include <stdio.h> // For debugging, remove in final version
 #include <math.h>
 
 static Bullet bullets[MAX_BULLETS];
-
 static Asteroid asteroids[MAX_ASTEROIDS];
 
 void CheckCollisions(Player *player, bool *gameOver, int *level)
@@ -12,7 +12,9 @@ void CheckCollisions(Player *player, bool *gameOver, int *level)
     {
         if (asteroids[i].active)
         {
-            if (CheckCollisionCircleRec(asteroids[i].position, asteroids[i].radius, (Rectangle){player->position.x - 10, player->position.y - 10, 20, 20}))
+            // Calculate distance between player and asteroid
+            float distance = Vector2Distance(player->position, asteroids[i].position);
+            if (distance < player->radius + asteroids[i].radius)
             {
                 *gameOver = true;
                 return;
@@ -29,7 +31,9 @@ void CheckCollisions(Player *player, bool *gameOver, int *level)
             {
                 if (asteroids[j].active)
                 {
-                    if (CheckCollisionCircles(bullets[i].position, 2, asteroids[j].position, asteroids[j].radius))
+                    // Calculate distance between bullet and asteroid
+                    float distance = Vector2Distance(bullets[i].position, asteroids[j].position);
+                    if (distance < bullets[i].radius + asteroids[j].radius)
                     {
                         bullets[i].active = false;
                         asteroids[j].active = false;
@@ -53,7 +57,7 @@ void CheckCollisions(Player *player, bool *gameOver, int *level)
 
     if (allDestroyed)
     {
-        *level += 1;
+        *level += 1; // Increase level after all asteroids destroyed
         InitAsteroids(); // Reset asteroids for next level
     }
 }

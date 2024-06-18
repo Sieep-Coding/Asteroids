@@ -24,18 +24,20 @@ void UpdateAsteroids(void)
     {
         if (asteroids[i].active)
         {
+            // Update asteroid position based on velocity
             asteroids[i].position.x += asteroids[i].velocity.x;
             asteroids[i].position.y += asteroids[i].velocity.y;
 
-            // Screen wrap
-            if (asteroids[i].position.x > SCREEN_WIDTH)
-                asteroids[i].position.x = 0;
-            if (asteroids[i].position.x < 0)
-                asteroids[i].position.x = SCREEN_WIDTH;
-            if (asteroids[i].position.y > SCREEN_HEIGHT)
-                asteroids[i].position.y = 0;
-            if (asteroids[i].position.y < 0)
-                asteroids[i].position.y = SCREEN_HEIGHT;
+            // Check if asteroid goes out of bounds and wrap it around
+            if (asteroids[i].position.x > SCREEN_WIDTH + asteroids[i].radius)
+                asteroids[i].position.x = -asteroids[i].radius;
+            else if (asteroids[i].position.x < -asteroids[i].radius)
+                asteroids[i].position.x = SCREEN_WIDTH + asteroids[i].radius;
+
+            if (asteroids[i].position.y > SCREEN_HEIGHT + asteroids[i].radius)
+                asteroids[i].position.y = -asteroids[i].radius;
+            else if (asteroids[i].position.y < -asteroids[i].radius)
+                asteroids[i].position.y = SCREEN_HEIGHT + asteroids[i].radius;
         }
     }
 }
