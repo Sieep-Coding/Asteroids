@@ -1,8 +1,5 @@
 #include "raylib.h"
-#include "player.h"
-#include "asteroid.h"
-#include "bullet.h"
-#include "utils.h"
+#include "./include/player.h"
 #include <math.h>
 
 #define SCREEN_WIDTH 800

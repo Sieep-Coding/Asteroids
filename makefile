@@ -5,14 +5,18 @@ TARGET = asteroids
 SRCDIR = ./include
 SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJS = $(SOURCES:.c=.o)
+MAIN = main.c
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
+$(TARGET): $(OBJS) $(MAIN:.c=.o)
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(SRCDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(MAIN:.c=.o): $(MAIN)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(MAIN:.c=.o) $(TARGET)
 
 .PHONY: clean
