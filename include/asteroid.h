@@ -4,11 +4,10 @@
 #include "raylib.h"
 
 typedef struct Asteroid {
-    Vector2 postion;
+    Vector2 position;
     Vector2 velocity;
     float radius;
     bool active;
-
 } Asteroid;
 
 void InitAsteroids(void);
